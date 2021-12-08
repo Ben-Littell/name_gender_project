@@ -24,9 +24,11 @@ def letter_position(name_list, pos):
     return new_dict
 
 
-def plot_data(title, x1, y1, plot_code='-xr'):
-    plt.ylabel(title)
-    plt.plot(x1, y1, plot_code)
+def plot_data(title, x1, y1, x2, y2, y_label, x_label, plot_code1='-b', plot_code2='-r'):
+    plt.title(title)
+    plt.ylabel(y_label)
+    plt.xlabel(x_label)
+    plt.plot(x1, y1, plot_code1, x2, y2, plot_code2)
     plt.axis([0, 26, 0, 1])
 
 
@@ -39,6 +41,36 @@ def get_percent(name_dict, names_len):
     return new_list
 
 
+def use_condition(names_1, names_2, list_condition_1, list_condition_2, index):
+    list_s1 = []
+    list_ns1 = []
+    list_s2 = []
+    list_ns2 = []
+
+    for name in names_1:
+        if name[index] in list_condition_1:
+            list_s1.append(name)
+        else:
+            list_ns1.append(name)
+    for name in names_2:
+        if name[index] in list_condition_1:
+            list_s1.append(name)
+        else:
+            list_ns1.append(name)
+    for name in names_1:
+        if name[index] in list_condition_2:
+            list_s2.append(name)
+        else:
+            list_ns2.append(name)
+    for name in names_2:
+        if name[index] in list_condition_2:
+            list_s2.append(name)
+        else:
+            list_ns2.append(name)
+    return list_s1, list_ns1, list_s2, list_ns2
+
+
+####################
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z']
 ####################
@@ -73,27 +105,17 @@ female_second_last = letter_position(female_names, -1)
 male_percent_second_last = get_percent(male_second_last, male_names_len)
 female_percent_second_last = get_percent(female_second_last, female_names_len)
 ####################
-plt.subplot(2, 1, 1)
-plot_data('Male First', alphabet, male_percent_list_first)
-plt.subplot(2, 1, 2)
-plot_data('Female First', alphabet, female_percent_list_first)
-plt.show()
-
-plt.subplot(2, 1, 1)
-plot_data('Male Last', alphabet, male_percent_last)
-plt.subplot(2, 1, 2)
-plot_data('Female Last', alphabet, female_percent_last)
-plt.show()
-
-plt.subplot(2, 1, 1)
-plot_data('Male 2nd', alphabet, male_percent_second)
-plt.subplot(2, 1, 2)
-plot_data('Female 2nd', alphabet, female_percent_second)
-plt.show()
-
-plt.subplot(2, 1, 1)
-plot_data('Male 2nd Last', alphabet, male_percent_second_last)
-plt.subplot(2, 1, 2)
-plot_data('Female 2nd Last', alphabet, female_percent_second_last)
-plt.show()
+# plot_data('First Letter', alphabet, male_percent_list_first, alphabet, female_percent_list_first, 'Percent', 'Letter')
+# plt.show()
+#
+# plot_data('Last Letter', alphabet, male_percent_last, alphabet, female_percent_last, 'Percent', 'Letter')
+# plt.show()
+#
+# plot_data('2nd Letter', alphabet, male_percent_second, alphabet, female_percent_second, 'Percent', 'Letter')
+# plt.show()
+#
+# plot_data('2nd to Last Letter', alphabet, male_percent_second_last, alphabet, female_percent_second_last, 'Percent',
+#           'Letter')
+# plt.show()
+####################
 
