@@ -34,18 +34,17 @@ def plot_data(title, x1, y1, x2, y2, y_label, x_label, plot_code1='-b', plot_cod
 
 def get_percent(name_dict, names_len):
     new_list = []
-    alphabet1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+    alphabet1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                 'U',
                  'V', 'W', 'X', 'Y', 'Z']
     for letter in alphabet1:
-        new_list.append(len(name_dict[letter])/names_len)
+        new_list.append(len(name_dict[letter]) / names_len)
     return new_list
 
 
-def use_condition(names_1, names_2, list_condition_1, list_condition_2, index):
+def use_condition(names_1, names_2, list_condition_1, index):
     list_s1 = []
     list_ns1 = []
-    list_s2 = []
-    list_ns2 = []
 
     for name in names_1:
         if name[index] in list_condition_1:
@@ -57,17 +56,25 @@ def use_condition(names_1, names_2, list_condition_1, list_condition_2, index):
             list_s1.append(name)
         else:
             list_ns1.append(name)
-    for name in names_1:
-        if name[index] in list_condition_2:
-            list_s2.append(name)
+    return list_s1, list_ns1
+
+
+def check_condition_s(m_names, f_names, ms, mus):
+    m_n_c = 0
+    m_n_w = 0
+    m_n_uc = 0
+    m_n_uw = 0
+    for name in ms:
+        if name in m_names:
+            m_n_c += 1
         else:
-            list_ns2.append(name)
-    for name in names_2:
-        if name[index] in list_condition_2:
-            list_s2.append(name)
+            m_n_w += 1
+    for name in mus:
+        if name in f_names:
+            m_n_uc += 1
         else:
-            list_ns2.append(name)
-    return list_s1, list_ns1, list_s2, list_ns2
+            m_n_uw += 1
+    return m_n_c, m_n_w, m_n_c, m_n_uw
 
 
 ####################
@@ -118,4 +125,19 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 #           'Letter')
 # plt.show()
 ####################
+
+m_satisfied, m_unsatisfied = use_condition(male_names, female_names, ['L', 'N', 'R', 'S', 'T'], -1)
+
+print(len(m_satisfied), len(m_unsatisfied))
+
+numb_c_m, numb_mc_m, numb_c_f, numb_mc_f = check_condition_s(male_names, female_names, m_satisfied, m_unsatisfied)
+
+print(f'{numb_c_m} male tp')
+print(f'{numb_mc_m} male fp')
+print(f'{numb_c_f} male tn')
+print(f'{numb_mc_f} male fn')
+
+
+
+
 
