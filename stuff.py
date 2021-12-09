@@ -42,21 +42,28 @@ def get_percent(name_dict, names_len):
     return new_list
 
 
-def use_condition(names_1, names_2, list_condition_1, index):
-    list_s1 = []
-    list_ns1 = []
+def use_condition(names_1, names_2, list_condition_1, condition2, index):
+    boys_tp = 0
+    boys_fp = 0
+    boys_fn = 0
+    girls_tp = 0
+    unknown = []
 
     for name in names_1:
         if name[index] in list_condition_1:
-            list_s1.append(name)
+            boys_tp += 1
+        elif name[index] in condition2:
+            boys_fn += 1
         else:
-            list_ns1.append(name)
+            unknown.append(name)
     for name in names_2:
         if name[index] in list_condition_1:
-            list_s1.append(name)
+            boys_fp += 1
+        elif name[index] in condition2:
+            girls_tp += 1
         else:
-            list_ns1.append(name)
-    return list_s1, list_ns1
+            unknown.append(name)
+    return boys_tp, boys_fn, unknown
 
 
 def check_condition_s(m_names, f_names, ms, mus):
@@ -126,16 +133,8 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 # plt.show()
 ####################
 
-m_satisfied, m_unsatisfied = use_condition(male_names, female_names, ['L', 'N', 'R', 'S', 'T'], -1)
+b_tp, girls_name, unknown1 = use_condition(male_names, female_names, ['L', 'N', 'R', 'S', 'T'], ['A', 'E', 'I'], -1)
 
-print(len(m_satisfied), len(m_unsatisfied))
-
-numb_c_m, numb_mc_m, numb_c_f, numb_mc_f = check_condition_s(male_names, female_names, m_satisfied, m_unsatisfied)
-
-print(f'{numb_c_m} male tp')
-print(f'{numb_mc_m} male fp')
-print(f'{numb_c_f} male tn')
-print(f'{numb_mc_f} male fn')
 
 
 
