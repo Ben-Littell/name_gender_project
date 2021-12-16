@@ -46,24 +46,33 @@ def use_condition(names_1, names_2, list_condition_1, condition2, index):
     boys_tp = 0
     boys_fp = 0
     boys_fn = 0
+    boys_tn = 0
     girls_tp = 0
-    unknown = []
+    girls_fp = 0
+    girls_fn = 0
+    girls_tn = 0
+    u_b = []
+    u_g = []
 
     for name in names_1:
         if name[index] in list_condition_1:
             boys_tp += 1
+            boys_tn += 1
         elif name[index] in condition2:
             boys_fn += 1
+            girls_fp += 1
         else:
-            unknown.append(name)
+            u_b.append(name)
     for name in names_2:
         if name[index] in list_condition_1:
             boys_fp += 1
+            girls_fn += 1
         elif name[index] in condition2:
             girls_tp += 1
+            girls_tn += 1
         else:
-            unknown.append(name)
-    return boys_tp, boys_fn, unknown
+            u_g.append(name)
+    return boys_tp, boys_fn, boys_fp, boys_tn, girls_tp, girls_fn, girls_fp, girls_tn, u_b, u_g
 
 
 def check_condition_s(m_names, f_names, ms, mus):
@@ -133,10 +142,17 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 # plt.show()
 ####################
 
-b_tp, girls_name, unknown1 = use_condition(male_names, female_names, ['L', 'N', 'R', 'S', 'T'], ['A', 'E', 'I'], -1)
+b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condition(male_names, female_names,
+                                                                         ['L', 'N', 'R', 'S', 'T'], ['A', 'E', 'I'], -1)
 
-
-
-
-
-
+print(f'Boys TP: {b_tp}')
+print(f'Boys FN: {b_fn}')
+print(f'Boys FP: {b_fp}')
+print(f'Boys TN: {b_tn}')
+print(f'Boys Unknown: {len(unknown_b)}')
+print()
+print(f'Girls TP: {g_tp}')
+print(f'Girls FN: {g_fn}')
+print(f'Girls FP: {g_fp}')
+print(f'Girls TN: {g_tn}')
+print(f'Girls Unknown: {len(unknown_g)}')
