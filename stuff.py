@@ -57,7 +57,7 @@ def use_condition(names_1, names_2, list_condition_1, condition2, index):
     for name in names_1:
         if name[index] in list_condition_1:
             boys_tp += 1
-            boys_tn += 1
+            girls_tn += 1
         elif name[index] in condition2:
             boys_fn += 1
             girls_fp += 1
@@ -69,28 +69,10 @@ def use_condition(names_1, names_2, list_condition_1, condition2, index):
             girls_fn += 1
         elif name[index] in condition2:
             girls_tp += 1
-            girls_tn += 1
+            boys_tn += 1
         else:
             u_g.append(name)
     return boys_tp, boys_fn, boys_fp, boys_tn, girls_tp, girls_fn, girls_fp, girls_tn, u_b, u_g
-
-
-def check_condition_s(m_names, f_names, ms, mus):
-    m_n_c = 0
-    m_n_w = 0
-    m_n_uc = 0
-    m_n_uw = 0
-    for name in ms:
-        if name in m_names:
-            m_n_c += 1
-        else:
-            m_n_w += 1
-    for name in mus:
-        if name in f_names:
-            m_n_uc += 1
-        else:
-            m_n_uw += 1
-    return m_n_c, m_n_w, m_n_c, m_n_uw
 
 
 ####################
@@ -143,16 +125,20 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 ####################
 
 b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condition(male_names, female_names,
-                                                                         ['L', 'N', 'R', 'S', 'T'], ['A', 'E', 'I'], -1)
+                                                                                     ['L', 'N', 'R', 'S', 'T'],
+                                                                                     ['A', 'E', 'I'], -1)
 
-print(f'Boys TP: {b_tp}')
-print(f'Boys FN: {b_fn}')
-print(f'Boys FP: {b_fp}')
-print(f'Boys TN: {b_tn}')
-print(f'Boys Unknown: {len(unknown_b)}')
+b_tp2, b_fn2, b_fp2, b_tn2, g_tp2, g_fn2, g_fp2, g_tn2, unknown_b2, unknown_g2 = use_condition(unknown_b, unknown_g,
+                                                                                               ['D', 'O'], ['Y'], -1)
+
+print(f'Boys TP: {b_tp2}')
+print(f'Boys FN: {b_fn2}')
+print(f'Boys FP: {b_fp2}')
+print(f'Girls TN: {b_tn2}')
+print(f'Boys Unknown: {len(unknown_b2)}')
 print()
-print(f'Girls TP: {g_tp}')
-print(f'Girls FN: {g_fn}')
-print(f'Girls FP: {g_fp}')
-print(f'Girls TN: {g_tn}')
-print(f'Girls Unknown: {len(unknown_g)}')
+print(f'Girls TP: {g_tp2}')
+print(f'Girls FN: {g_fn2}')
+print(f'Girls FP: {g_fp2}')
+print(f'Boys TN: {g_tn2}')
+print(f'Girls Unknown: {len(unknown_g2)}')
