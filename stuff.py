@@ -131,14 +131,19 @@ b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condi
 b_tp2, b_fn2, b_fp2, b_tn2, g_tp2, g_fn2, g_fp2, g_tn2, unknown_b2, unknown_g2 = use_condition(unknown_b, unknown_g,
                                                                                                ['D', 'O'], ['Y'], -1)
 
-print(f'Boys TP: {b_tp2}')
-print(f'Boys FN: {b_fn2}')
-print(f'Boys FP: {b_fp2}')
-print(f'Girls TN: {b_tn2}')
+########################################################################################################################
+btp_total = b_tp + b_tp2
+bfp_total = b_fp + b_fp2
+########################################################################################################################
+print(f'Boys TP: {b_tp2 + b_tp}')
+print(f'Boys FN: {b_fn2 + b_fn}')
+print(f'Boys FP: {b_fp2 + b_fp}')
+print(f'Girls TN: {b_tn2 + b_tn}')
 print(f'Boys Unknown: {len(unknown_b2)}')
+print(f'Precision: {btp_total/(btp_total + bfp_total)}')
 print()
-print(f'Girls TP: {g_tp2}')
-print(f'Girls FN: {g_fn2}')
-print(f'Girls FP: {g_fp2}')
-print(f'Boys TN: {g_tn2}')
+print(f'Girls TP: {g_tp2 + g_tp}')
+print(f'Girls FN: {g_fn2+ g_fn}')
+print(f'Girls FP: {g_fp2 + g_fp}')
+print(f'Boys TN: {g_tn2 + g_tn}')
 print(f'Girls Unknown: {len(unknown_g2)}')
