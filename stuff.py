@@ -113,8 +113,8 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 # plot_data('First Letter', alphabet, male_percent_list_first, alphabet, female_percent_list_first, 'Percent', 'Letter')
 # plt.show()
 #
-# plot_data('Last Letter', alphabet, male_percent_last, alphabet, female_percent_last, 'Percent', 'Letter')
-# plt.show()
+plot_data('Last Letter', alphabet, male_percent_last, alphabet, female_percent_last, 'Percent', 'Letter')
+plt.show()
 #
 # plot_data('2nd Letter', alphabet, male_percent_second, alphabet, female_percent_second, 'Percent', 'Letter')
 # plt.show()
@@ -122,6 +122,7 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 # plot_data('2nd to Last Letter', alphabet, male_percent_second_last, alphabet, female_percent_second_last, 'Percent',
 #           'Letter')
 # plt.show()
+
 ####################
 
 b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condition(male_names, female_names,
@@ -134,6 +135,9 @@ b_tp2, b_fn2, b_fp2, b_tn2, g_tp2, g_fn2, g_fp2, g_tn2, unknown_b2, unknown_g2 =
 ########################################################################################################################
 btp_total = b_tp + b_tp2
 bfp_total = b_fp + b_fp2
+
+plot_data('deffered', alphabet, unknown_b, alphabet, unknown_g, 'percent', 'Letter')
+plt.show()
 ########################################################################################################################
 print(f'Boys TP: {b_tp2 + b_tp}')
 print(f'Boys FN: {b_fn2 + b_fn}')
