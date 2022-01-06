@@ -109,7 +109,7 @@ male_second_last = letter_position(male_names, -1)
 female_second_last = letter_position(female_names, -1)
 male_percent_second_last = get_percent(male_second_last, male_names_len)
 female_percent_second_last = get_percent(female_second_last, female_names_len)
-####################
+
 # plot_data('First Letter', alphabet, male_percent_list_first, alphabet, female_percent_list_first, 'Percent', 'Letter')
 # plt.show()
 #
@@ -136,7 +136,14 @@ b_tp2, b_fn2, b_fp2, b_tn2, g_tp2, g_fn2, g_fp2, g_tn2, unknown_b2, unknown_g2 =
 btp_total = b_tp + b_tp2
 bfp_total = b_fp + b_fp2
 
-plot_data('deffered', alphabet, unknown_b, alphabet, unknown_g, 'percent', 'Letter')
+########################################################################################################################
+####################
+male_last2 = letter_position(unknown_b, -1)
+female_last2 = letter_position(unknown_g, -1)
+male_percent_last2 = get_percent(male_last2, len(unknown_b))
+female_percent_last2 = get_percent(female_last2, len(unknown_g))
+####################
+plot_data('deffired', alphabet, male_percent_last2, alphabet, female_percent_last2, 'percent', 'Letter')
 plt.show()
 ########################################################################################################################
 print(f'Boys TP: {b_tp2 + b_tp}')
