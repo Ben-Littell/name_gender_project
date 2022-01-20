@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import random
 
 
 def open_file(file_name):
@@ -12,6 +13,16 @@ def open_file(file_name):
         return new_list
 
 
+def open_file2(file_name):
+    new_list = []
+    with open(file_name) as file:
+        lines = file.readlines()
+        for item in lines:
+            stripped = item.strip()
+            new_list.append(stripped)
+        return new_list
+
+
 def letter_position(name_list, pos):
     new_dict = {}
     letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
@@ -19,7 +30,7 @@ def letter_position(name_list, pos):
     for letter in letters:
         new_dict[letter] = []
         for name in name_list:
-            if name[pos] == letter:
+            if name[pos].capitalize() == letter:
                 new_dict[letter].append(name)
     return new_dict
 
@@ -35,8 +46,7 @@ def plot_data(title, x1, y1, x2, y2, y_label, x_label, plot_code1='-b', plot_cod
 def get_percent(name_dict, names_len):
     new_list = []
     alphabet1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                 'U',
-                 'V', 'W', 'X', 'Y', 'Z']
+                 'U', 'V', 'W', 'X', 'Y', 'Z']
     for letter in alphabet1:
         new_list.append(len(name_dict[letter]) / names_len)
     return new_list
@@ -55,19 +65,19 @@ def use_condition(names_1, names_2, list_condition_1, condition2, index):
     u_g = []
 
     for name in names_1:
-        if name[index] in list_condition_1:
+        if name[index].capitalize() in list_condition_1:
             boys_tp += 1
             girls_tn += 1
-        elif name[index] in condition2:
+        elif name[index].capitalize() in condition2:
             boys_fn += 1
             girls_fp += 1
         else:
             u_b.append(name)
     for name in names_2:
-        if name[index] in list_condition_1:
+        if name[index].capitalize() in list_condition_1:
             boys_fp += 1
             girls_fn += 1
-        elif name[index] in condition2:
+        elif name[index].capitalize() in condition2:
             girls_tp += 1
             boys_tn += 1
         else:
@@ -113,8 +123,8 @@ female_percent_second_last = get_percent(female_second_last, female_names_len)
 # plot_data('First Letter', alphabet, male_percent_list_first, alphabet, female_percent_list_first, 'Percent', 'Letter')
 # plt.show()
 #
-plot_data('Last Letter', alphabet, male_percent_last, alphabet, female_percent_last, 'Percent', 'Letter')
-plt.show()
+# plot_data('Last Letter', alphabet, male_percent_last, alphabet, female_percent_last, 'Percent', 'Letter')
+# plt.show()
 #
 # plot_data('2nd Letter', alphabet, male_percent_second, alphabet, female_percent_second, 'Percent', 'Letter')
 # plt.show()
@@ -124,8 +134,20 @@ plt.show()
 # plt.show()
 
 ####################
+########################################################################################################################
+males2 = open_file2('Benjamin Littell - kaggle_boys_name_corpus.txt')
+male2_len = len(males2)
+random.shuffle(males2)
+males_limit = [males2[numb] for numb in range(1500)]
+females2 = open_file2('Benjamin Littell - kaggle_female_names_corpus (1).txt')
+females2_len = len(females2)
+random.shuffle(females2)
+females_limit = [females2[numb] for numb in range(1500)]
+male_first = letter_position(males2, 0)
+female_first = letter_position(females2, 0)
+########################################################################################################################
 
-b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condition(male_names, female_names,
+b_tp, b_fn, b_fp, b_tn, g_tp, g_fn, g_fp, g_tn, unknown_b, unknown_g = use_condition(males_limit, females_limit,
                                                                                      ['L', 'N', 'R', 'S', 'T'],
                                                                                      ['A', 'E', 'I'], -1)
 
@@ -138,12 +160,12 @@ bfp_total = b_fp + b_fp2
 
 ########################################################################################################################
 ####################
-male_last2 = letter_position(unknown_b, -1)
-female_last2 = letter_position(unknown_g, -1)
-male_percent_last2 = get_percent(male_last2, len(unknown_b))
-female_percent_last2 = get_percent(female_last2, len(unknown_g))
+male_last2 = letter_position(males2, -1)
+female_last2 = letter_position(females2, -1)
+male_percent_last2 = get_percent(male_last2, len(males2))
+female_percent_last2 = get_percent(female_last2, len(females2))
 ####################
-plot_data('deffired', alphabet, male_percent_last2, alphabet, female_percent_last2, 'percent', 'Letter')
+plot_data('Shuffled List', alphabet, male_percent_last2, alphabet, female_percent_last2, 'percent', 'Letter')
 plt.show()
 ########################################################################################################################
 print(f'Boys TP: {b_tp2 + b_tp}')
